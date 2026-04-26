@@ -83,39 +83,16 @@ MAIN_CSS = """
     font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan);
 }
 .metric-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem; }
-.nav-btn {
-    width: 100%; border: none; padding: 0; cursor: pointer; background: none; text-align: right;
-}
-.nav-btn div[data-testid="stButton"] {
-    background: linear-gradient(145deg, var(--bg-card), rgba(26,34,54,0.5));
-    border: 1px solid rgba(6,214,160,0.1); border-radius: 14px;
-    padding: 1.2rem 1rem; text-align: right; width: 100%;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.nav-btn div[data-testid="stButton"]:hover {
-    border-color: var(--accent-cyan);
-    box-shadow: 0 0 20px rgba(6,214,160,0.3), 0 8px 30px rgba(0,0,0,0.4);
-}
-.nav-btn p {
-    font-family: 'Cairo', sans-serif; font-size: 0.95rem; color: var(--text-secondary);
-    line-height: 1.5; margin: 0;
-}
-.nav-btn h3 {
-    font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 700;
-    color: var(--text-primary); margin: 0 0 0.3rem 0;
-}
 </style>
 """
 st.markdown(MAIN_CSS, unsafe_allow_html=True)
 
 MU_0 = 4 * np.pi * 1e-7
 
-# العنوان الرئيسي
 st.markdown('<div class="section-title">المجال المغناطيسي الناشئ عن تيار كهربائي</div>', unsafe_allow_html=True)
 st.markdown('<div class="section-sub">Magnetic Field of an Electric Current</div>', unsafe_allow_html=True)
 st.markdown('<div style="text-align:center; color:var(--text-secondary); margin-bottom:2.5rem; font-size:0.95rem;">فيزياء الصف الثاني عشر - الجزء الثاني 2025</div>', unsafe_allow_html=True)
 
-# بطاقات الإحصائيات
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     st.markdown('<div class="metric-card"><div class="metric-value">12</div><div class="metric-label">قسم تفاعلي</div></div>', unsafe_allow_html=True)
@@ -129,17 +106,20 @@ with col4:
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="font-size:1.3rem; font-weight:700; color:var(--text-primary); margin-bottom:1.2rem; text-align:center;">استكشف الأقسام</div>', unsafe_allow_html=True)
 
-# الأقسام مع st.switch_page
+# دالة التنقل - يجب تعريفها قبل الاستخدام
+def navigate_to(page_path):
+    st.switch_page(page_path)
+
 sections = [
-    ("🔬", "قانون بيو-سافار", "تجربة تفاعلية لاكتشاف العلاقة الرياضية وحساب المجال المغناطيسي الجزئي", "pages/01_biot_savart.py"),
-    ("🧲", "المجال من الموصلات", "المجال المغناطيسي لموصل مستقيم وملف دائري وملف لولبي مع قاعدة اليد اليمنى", "pages/02_magnetic_field_conductors.py"),
+    ("🔬", "قانون بيو-سافار", "تجربة تفاعلية لاكتشاف العلاقة الرياضية وحساب المجال المغناطيسي", "pages/01_biot_savart.py"),
+    ("🧲", "المجال من الموصلات", "المجال لموصل مستقيم وملف دائري وملف لولبي مع قاعدة اليد اليمنى", "pages/02_magnetic_field_conductors.py"),
     ("🔥", "احتواء البلازما", "كيف يحتوي المجال المغناطيسي البلازما في مفاعلات الاندماج النووي", "pages/03_plasma_confinement.py"),
-    ("⚡", "القوة بين موصلين متوازيين", "تجربة تفاعلية واستنتاج العلاقة الرياضية للقوة المتبادلة", "pages/04_parallel_conductors.py"),
+    ("⚡", "القوة بين موصلين", "تجربة تفاعلية واستنتاج العلاقة الرياضية للقوة المتبادلة", "pages/04_parallel_conductors.py"),
     ("🧭", "المغناطيسية الطبيعية", "تفسير المغناطيسية الدائمة ومناطق المجال المغناطيسي", "pages/05_natural_magnetism.py"),
     ("⚛️", "جسيم مشحون 3D", "حركة جسيم مشحون في مجال مغناطيسي منتظم برسوم ثلاثية الأبعاد", "pages/06_charged_particle_3d.py"),
-    ("🔬", "مطياف الكتلة والسينكروترون", "تطبيقات حديثة للمجال المغناطيسي في الفيزياء والتكنولوجيا", "pages/07_mass_spectrometer_synchrotron.py"),
-    ("💪", "القوة على موصل يحمل تيارا", "تأثير المجال المغناطيسي في موصل يحمل تيارا وتحديد اتجاه القوة", "pages/08_force_on_conductor.py"),
-    ("🧪", "المختبر الافتراضي", "قياس وملاحظة واستنتاج والتوصل للعلاقات الرياضية بالتجربة", "pages/09_virtual_lab.py"),
+    ("🔬", "مطياف الكتلة", "مطياف الكتلة ومسرع السينكروترون وتطبيقاتهما", "pages/07_mass_spectrometer_synchrotron.py"),
+    ("💪", "القوة على موصل", "تأثير المجال المغناطيسي في موصل يحمل تيارا وتحديد اتجاه القوة", "pages/08_force_on_conductor.py"),
+    ("🧪", "المختبر الافتراضي", "قياس وملاحظة واستنتاج والتوصل للعلاقات الرياضية", "pages/09_virtual_lab.py"),
     ("📋", "أمثلة تفاعلية", "أمثلة من الحياة اليومية مع توضيح المعطيات والمطلوب", "pages/10_interactive_examples.py"),
     ("✅", "التقييم النهائي", "اختبار تفاعلي شامل لقياس فهمك لجميع مفاهيم الدرس", "pages/11_final_assessment.py"),
 ]
@@ -151,13 +131,16 @@ for i in range(0, len(sections), 3):
         if idx < len(sections):
             icon, title, desc, page = sections[idx]
             with col:
-                btn_label = f"**{icon} {title}**\n\n{desc}"
-                if st.button(btn_label, key=f"nav_{idx}", use_container_width=True):
-                    st.switch_page(page)
+                st.button(
+                    f"{icon}  {title}\n\n{desc}",
+                    key=f"nav_{idx}",
+                    use_container_width=True,
+                    on_click=navigate_to,
+                    args=(page,)
+                )
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
-# محتوى تعريفي
 st.markdown("""<div class="card">
 <div style="font-size:1.2rem; font-weight:700; color:var(--accent-cyan); margin-bottom:1rem;">الفكرة الرئيسة</div>
 <p style="color:var(--text-secondary); line-height:1.9; font-size:1rem;">
