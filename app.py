@@ -18,8 +18,6 @@ MAIN_CSS = """
     --accent-cyan: #06d6a0;
     --accent-blue: #118ab2;
     --accent-orange: #ef8354;
-    --accent-purple: #7b2cbf;
-    --accent-red: #e63946;
     --text-primary: #e8eaed;
     --text-secondary: #9aa5b4;
 }
@@ -49,18 +47,6 @@ MAIN_CSS = """
     border-radius: 16px; padding: 1.5rem; margin-bottom: 1.5rem;
     backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
-.formula-box {
-    background: linear-gradient(135deg, rgba(6,214,160,0.08), rgba(17,138,178,0.08));
-    border: 1px solid rgba(6,214,160,0.25); border-radius: 12px;
-    padding: 1.2rem 1.8rem; margin: 1rem 0; text-align: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 1.25rem;
-    color: var(--accent-cyan); direction: ltr;
-}
-.info-box {
-    background: linear-gradient(135deg, rgba(17,138,178,0.12), rgba(123,44,191,0.08));
-    border: 1px solid rgba(17,138,178,0.3); border-left: 4px solid var(--accent-blue);
-    border-radius: 0 12px 12px 0; padding: 1rem 1.5rem; margin: 1rem 0;
-}
 .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(6,214,160,0.3), transparent);
@@ -83,6 +69,19 @@ MAIN_CSS = """
     font-family: 'JetBrains Mono', monospace; color: var(--accent-cyan);
 }
 .metric-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.3rem; }
+[data-testid="stPageLink-NavLink"] {
+    background: linear-gradient(145deg, var(--bg-card), rgba(26,34,54,0.5)) !important;
+    border: 1px solid rgba(6,214,160,0.1) !important;
+    border-radius: 14px !important;
+    padding: 1rem 1.2rem !important;
+    transition: all 0.3s ease !important;
+    margin-bottom: 0.5rem !important;
+}
+[data-testid="stPageLink-NavLink"]:hover {
+    border-color: rgba(6,214,160,0.4) !important;
+    box-shadow: 0 0 20px rgba(6,214,160,0.3), 0 8px 30px rgba(0,0,0,0.4) !important;
+    transform: translateY(-2px) !important;
+}
 </style>
 """
 st.markdown(MAIN_CSS, unsafe_allow_html=True)
@@ -106,22 +105,18 @@ with col4:
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 st.markdown('<div style="font-size:1.3rem; font-weight:700; color:var(--text-primary); margin-bottom:1.2rem; text-align:center;">استكشف الأقسام</div>', unsafe_allow_html=True)
 
-# دالة التنقل - يجب تعريفها قبل الاستخدام
-def navigate_to(page_path):
-    st.switch_page(page_path)
-
 sections = [
-    ("🔬", "قانون بيو-سافار", "تجربة تفاعلية لاكتشاف العلاقة الرياضية وحساب المجال المغناطيسي", "pages/01_biot_savart.py"),
-    ("🧲", "المجال من الموصلات", "المجال لموصل مستقيم وملف دائري وملف لولبي مع قاعدة اليد اليمنى", "pages/02_magnetic_field_conductors.py"),
-    ("🔥", "احتواء البلازما", "كيف يحتوي المجال المغناطيسي البلازما في مفاعلات الاندماج النووي", "pages/03_plasma_confinement.py"),
-    ("⚡", "القوة بين موصلين", "تجربة تفاعلية واستنتاج العلاقة الرياضية للقوة المتبادلة", "pages/04_parallel_conductors.py"),
-    ("🧭", "المغناطيسية الطبيعية", "تفسير المغناطيسية الدائمة ومناطق المجال المغناطيسي", "pages/05_natural_magnetism.py"),
-    ("⚛️", "جسيم مشحون 3D", "حركة جسيم مشحون في مجال مغناطيسي منتظم برسوم ثلاثية الأبعاد", "pages/06_charged_particle_3d.py"),
-    ("🔬", "مطياف الكتلة", "مطياف الكتلة ومسرع السينكروترون وتطبيقاتهما", "pages/07_mass_spectrometer_synchrotron.py"),
-    ("💪", "القوة على موصل", "تأثير المجال المغناطيسي في موصل يحمل تيارا وتحديد اتجاه القوة", "pages/08_force_on_conductor.py"),
-    ("🧪", "المختبر الافتراضي", "قياس وملاحظة واستنتاج والتوصل للعلاقات الرياضية", "pages/09_virtual_lab.py"),
-    ("📋", "أمثلة تفاعلية", "أمثلة من الحياة اليومية مع توضيح المعطيات والمطلوب", "pages/10_interactive_examples.py"),
-    ("✅", "التقييم النهائي", "اختبار تفاعلي شامل لقياس فهمك لجميع مفاهيم الدرس", "pages/11_final_assessment.py"),
+    ("pages/01_biot_savart.py", "🔬 قانون بيو-سافار", "تجربة تفاعلية لاكتشاف العلاقة الرياضية وحساب المجال المغناطيسي"),
+    ("pages/02_magnetic_field_conductors.py", "🧲 المجال من الموصلات", "المجال لموصل مستقيم وملف دائري وملف لولبي مع قاعدة اليد اليمنى"),
+    ("pages/03_plasma_confinement.py", "🔥 احتواء البلازما", "كيف يحتوي المجال المغناطيسي البلازما في مفاعلات الاندماج النووي"),
+    ("pages/04_parallel_conductors.py", "⚡ القوة بين موصلين", "تجربة تفاعلية واستنتاج العلاقة الرياضية للقوة المتبادلة"),
+    ("pages/05_natural_magnetism.py", "🧭 المغناطيسية الطبيعية", "تفسير المغناطيسية الدائمة ومناطق المجال المغناطيسي"),
+    ("pages/06_charged_particle_3d.py", "⚛️ جسيم مشحون 3D", "حركة جسيم مشحون في مجال مغناطيسي منتظم برسوم ثلاثية الأبعاد"),
+    ("pages/07_mass_spectrometer_synchrotron.py", "🔬 مطياف الكتلة", "مطياف الكتلة ومسرع السينكروترون وتطبيقاتهما"),
+    ("pages/08_force_on_conductor.py", "💪 القوة على موصل", "تأثير المجال المغناطيسي في موصل يحمل تيارا وتحديد اتجاه القوة"),
+    ("pages/09_virtual_lab.py", "🧪 المختبر الافتراضي", "قياس وملاحظة واستنتاج والتوصل للعلاقات الرياضية"),
+    ("pages/10_interactive_examples.py", "📋 أمثلة تفاعلية", "أمثلة من الحياة اليومية مع توضيح المعطيات والمطلوب"),
+    ("pages/11_final_assessment.py", "✅ التقييم النهائي", "اختبار تفاعلي شامل لقياس فهمك لجميع مفاهيم الدرس"),
 ]
 
 for i in range(0, len(sections), 3):
@@ -129,15 +124,9 @@ for i in range(0, len(sections), 3):
     for j, col in enumerate(cols):
         idx = i + j
         if idx < len(sections):
-            icon, title, desc, page = sections[idx]
+            page, title, desc = sections[idx]
             with col:
-                st.button(
-                    f"{icon}  {title}\n\n{desc}",
-                    key=f"nav_{idx}",
-                    use_container_width=True,
-                    on_click=navigate_to,
-                    args=(page,)
-                )
+                st.page_link(page, label=f"**{title}**  \n{desc}", use_container_width=True)
 
 st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
 
