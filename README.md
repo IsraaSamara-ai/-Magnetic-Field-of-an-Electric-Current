@@ -48,3 +48,11 @@ pip install -r requirements.txt
 streamlit run app.py
 Author
 Israa Youssuf Samara
+📄 حقوق الملكية / License
+Copyright © 2026 Israa Youssuf Samara
+
+هذا المشروع محمي بموجب رخصة MIT. يُسمح بالاستخدام والتعديل والتوزيع بشرط ذكر اسم المؤلفة.
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+⚠️ يرُجى عدم إزالة اسم المؤلفة من واجهة التطبيق عند إعادة الاستخدام.
